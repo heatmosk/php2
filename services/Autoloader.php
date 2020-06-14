@@ -1,6 +1,6 @@
 <?php
 
-namespace services;
+namespace app\services;
 
 class Autoloader
 {
@@ -11,7 +11,7 @@ class Autoloader
 
   public function loadClass(string $classname)
   {
-    $filename = __DIR__  . "/../" . $classname . ".php";
+    $filename = realpath(str_replace('app\\', ROOT_DIR, $classname) . ".php");
     if (file_exists($filename)) {
       require $filename;
       return true;

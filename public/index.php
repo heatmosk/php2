@@ -1,8 +1,8 @@
  
 <?php
-require __DIR__ . "/../services/Autoloader.php";
+require __DIR__ . "/../config/main.php";
+require ROOT_DIR . "services/Autoloader.php";
 
-spl_autoload_register([new services\Autoloader(), 'loadClass']);
+spl_autoload_register([new app\services\Autoloader(), 'loadClass']);
 
-$product = new models\Product();
-$product->setCategoryId(1)->setDescription("");
+$product = new app\models\Product();
