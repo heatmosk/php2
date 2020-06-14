@@ -5,98 +5,79 @@ namespace app\models;
 
 class Product extends Model
 {
-  protected $id;
+  protected $category_id;
   protected $name;
   protected $description;
   protected $price;
-  protected $category_id;
 
-  public function getTableName(): string
+  public function __construct(
+    $name = null,
+    $category_id = null,
+    $description = null,
+    $price = null
+  ) {
+    parent::__construct();
+    $this->name = $name;
+    $this->category_id = $category_id;
+    $this->description = $description;
+    $this->price = $price;
+  }
+
+  public static function getTableName(): string
   {
     return "products";
   }
-
-  /**
-   * @return mixed
-   */
-  public function getId()
-  {
-    return $this->id;
-  }
-
-  /**
-   * @param mixed $id
-   */
-  public function setId($id)
-  {
-    $this->id = $id;
-    return $this;
-  }
-
-  /**
-   * @return mixed
-   */
+  
   public function getName()
   {
     return $this->name;
   }
-
-  /**
-   * @param mixed $name
-   */
+  
   public function setName($name)
   {
     $this->name = $name;
+
     return $this;
   }
+  
+  public function getCategoryId()
+  {
+    return $this->category_id;
+  }
+  
+  public function setCategoryId($category_id)
+  {
+    $this->category_id = $category_id;
 
-  /**
-   * @return mixed
-   */
+    return $this;
+  }
+  
   public function getDescription()
   {
     return $this->description;
   }
-
-  /**
-   * @param mixed $description
-   */
+  
   public function setDescription($description)
   {
     $this->description = $description;
-  }
 
-  /**
-   * @return mixed
-   */
+    return $this;
+  } 
+
   public function getPrice()
   {
     return $this->price;
   }
-
-  /**
-   * @param mixed $price
-   */
+  
   public function setPrice($price)
   {
     $this->price = $price;
+
     return $this;
   }
 
-  /**
-   * @return int
-   */
-  public function getCategoryId(): int
+  public function save()
   {
-    return $this->category_id;
-  }
-
-  /**
-   * @param mixed $category_id
-   */
-  public function setCategoryId($category_id)
-  {
-    $this->category_id = $category_id;
-    return $this;
+    return parent::save();
   }
 }

@@ -4,9 +4,17 @@ namespace app\interfaces;
 
 interface ModelInterface
 {
-  public function getById(int $id): array;
+  public static function getById(int $id);
 
-  public function getALl();
+  public static function getAll();
 
-  public function getTableName(): string;
+  public static function getTableName(): string;
+
+  public function insert();
+
+  public function delete();
+
+  public function update(); 
+  
+  public function save();
 }
