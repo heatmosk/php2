@@ -2,11 +2,11 @@
 
 namespace app\interfaces;
 
-interface ModelInterface
+interface IRecord
 {
-  public static function getById(int $id);
+  public static function getById(int $id): IRecord;
 
-  public static function getAll();
+  public static function getAll(): array;
 
   public static function getTableName(): string;
 

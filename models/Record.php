@@ -2,10 +2,10 @@
 
 namespace app\models;
 
-use app\interfaces\ModelInterface;
+use app\interfaces\IRecord;
 use app\services\Db;
 
-abstract class Model implements ModelInterface
+abstract class Record implements IRecord
 {
   protected $id = null;
   protected $db = null;
@@ -13,7 +13,6 @@ abstract class Model implements ModelInterface
   public function __construct()
   {
     $this->db = Db::getInstance();
-    $this->tableName = $this->getTableName();
   }
 
   public function getId()
@@ -21,14 +20,14 @@ abstract class Model implements ModelInterface
     return $this->id;
   }
 
-  public static function getById(int $id)
+  public static function getById(int $id): Record
   {
     $tableName = static::getTableName();
     $sql = "SELECT * FROM {$tableName} WHERE id = {$id}";
     return Db::getInstance()->queryObject(get_called_class(), $sql, ["id" => $id]);
   }
 
-  public static function getAll()
+  public static function getAll(): array
   {
     $tableName = static::getTableName();
     $sql = "SELECT * FROM {$tableName}";

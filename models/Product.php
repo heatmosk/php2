@@ -3,19 +3,15 @@
 namespace app\models;
 
 
-class Product extends Model
+class Product extends Record
 {
-  protected $category_id;
   protected $name;
+  protected $category_id;
   protected $description;
   protected $price;
 
-  public function __construct(
-    $name = null,
-    $category_id = null,
-    $description = null,
-    $price = null
-  ) {
+  public function __construct($name = null, $category_id = null, $description = null, $price = null)
+  {
     parent::__construct();
     $this->name = $name;
     $this->category_id = $category_id;
@@ -23,61 +19,54 @@ class Product extends Model
     $this->price = $price;
   }
 
-  public static function getTableName(): string
-  {
-    return "products";
-  }
-  
+
   public function getName()
   {
     return $this->name;
   }
-  
-  public function setName($name)
+
+  public function setName($name): Product
   {
     $this->name = $name;
-
     return $this;
   }
-  
-  public function getCategoryId()
-  {
-    return $this->category_id;
-  }
-  
-  public function setCategoryId($category_id)
-  {
-    $this->category_id = $category_id;
 
+  public function getCategory()
+  {
+    return ProductCategory::getById($this->category_id);
+  }
+
+  public function setCategor(ProductCategory $category): Product
+  {
+    $this->category_id = $category->getId();
     return $this;
   }
-  
+
   public function getDescription()
   {
     return $this->description;
   }
-  
-  public function setDescription($description)
+
+  public function setDescription($description): Product
   {
     $this->description = $description;
-
     return $this;
-  } 
+  }
 
   public function getPrice()
   {
     return $this->price;
   }
-  
-  public function setPrice($price)
+
+  public function setPrice($price): Product
   {
     $this->price = $price;
 
     return $this;
   }
 
-  public function save()
+  public static function getTableName(): string
   {
-    return parent::save();
+    return "products";
   }
 }

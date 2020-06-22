@@ -2,11 +2,11 @@
 
 namespace app\models;
 
-class OrderStatus extends Record
+class ProductCategory extends Record
 {
   protected $name;
-  
-  public function __construct($name = null)
+
+  public function __construct(string $name)
   {
     parent::__construct();
     $this->name = $name;
@@ -17,7 +17,7 @@ class OrderStatus extends Record
     return $this->name;
   }
 
-  public function setName($name): OrderStatus
+  public function setName($name): ProductCategory
   {
     $this->name = $name;
     return $this;
@@ -25,6 +25,6 @@ class OrderStatus extends Record
 
   public static function getTableName(): string
   {
-    return "order_statuses";
+    return "product_categories";
   }
 }
