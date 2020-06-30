@@ -1,36 +1,24 @@
-<pre>
 <?php
 
-// use app\models\Product;
-use app\models\Order;
+use app\models\Session;
 
-require __DIR__ . "/../config/main.php";
+require $_SERVER['DOCUMENT_ROOT'] . "/../config/main.php";
 require ROOT_DIR . "services/Autoloader.php";
 
 spl_autoload_register([new app\services\Autoloader(), 'loadClass']);
 
-// // $product = app\models\Product::getById(1);
-// // $product->setPrice(300); 
-// // $product->update();
 
-// // $prod = new \app\models\Product("Молоко", 2, "Молоко 2.5%", 150);
-// // $prod->save();
+$controllerName = $_GET['c'] ?: 'product';
+$actionName = $_GET['a'] ?: 'index';
 
-// // var_dump($prod);
+$controllerClass = "app\controllers\\" . ucfirst($controllerName) . "Controller";
 
-// // $order = app\models\Order::getById(9);
-// // var_dump($order);
-// // $user = app\models\User::getById($order->getUserId());
-// // var_dump($user);
+Session::Start();
 
-// // $sran = app\models\Product::getById(7);
-// // $sran->delete();
-// $p = Product::getById(5);
-// $order = Order::getById(9);
-// $order->addProduct($p->getId(), 10);
-// // $op = new \app\models\OrderProducts($p, 10);
-// var_dump($op);
-// // $op->save();
-
-$order = Order::getById(9);
-$order->setProductAmount(2, 22);
+if (class_exists($controllerClass)) {
+  /** @var \app\controllers\ProductController $controller */
+  $controller = new $controllerClass(
+    new \app\services\renderers\TemplateRenderer()
+  );
+  $controller->runAction($actionName);
+}
