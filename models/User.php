@@ -2,51 +2,55 @@
 
 namespace app\models;
 
-class User extends Model
-{
-  public $id;
-  public $login;
-  public $password;
-  public $email;
+use app\models\auth; 
 
-  public function getTableName(): string
+class User extends Record
+{
+  protected $login;
+  protected $password;
+  protected $email;
+  public function __construct($login = null, $password = null, $email = null)
+  {
+    $this->login = $login;
+    $this->password = $this->setPassword($password);
+    $this->email = $email;
+  }
+
+  public static function getTableName(): string
   {
     return "users";
   }
 
-  /**
-   * @param mixed $id
-   */
-  public function setId($id)
-  {
-    $this->id = $id;
-    return $this;
-  }
-
-  /**
-   * @param mixed $login
-   */
-  public function setLogin($login)
+  public function setLogin($login): User
   {
     $this->login = $login;
     return $this;
   }
 
-  /**
-   * @param mixed $password
-   */
-  public function setPassword($password)
+  public function getLogin()
   {
-    $this->password = $password;
+    return $this->login;
+  }
+
+  public function setPassword($password): User
+  {
+    $this->password = Auth::getHash($password);
     return $this;
   }
 
-  /**
-   * @param mixed $email
-   */
-  public function setEmail($email)
+  public function getPasswordHash()
+  {
+    return $this->password;
+  }
+
+  public function setEmail($email): User
   {
     $this->email = $email;
     return $this;
+  }
+
+  public function getEmail()
+  {
+    return $this->email;
   }
 }
